@@ -1,10 +1,12 @@
 <script setup>
 
 import {router} from "../../router/index.js";
+import {useRoute} from "vue-router";
 
+const route = useRoute()
 const items = [
   {
-    text: 'User', href: '', child: [
+    text: 'User', href: '', icon:"mdi-account-group", child: [
       {text: 'List', href: '/users'},
       {text: 'New', href: '/user/new'},
     ]
@@ -13,15 +15,15 @@ const items = [
 </script>
 
 <template>
-  <v-list>
+  <v-list class="pe-3">
     <template v-for="(item,index) of items">
-      <v-list-group v-if="item.child" :value="item.text" >
+      <v-list-group v-if="item.child" :value="item.text">
         <template v-slot:activator="{ props }">
           <v-list-item
               v-bind="props"
               :title="item.text"
               :key="index"
-              class="custom-list-group"
+              :prepend-icon="item.icon"
           ></v-list-item>
         </template>
 
@@ -31,6 +33,10 @@ const items = [
                      :title="subItem.text"
                      link
                      @click="router.push(subItem.href)"
+                     prepend-icon="mdi-circle-medium"
+                     :class="{
+    active: route.fullPath===subItem.href
+  }"
         ></v-list-item>
       </v-list-group>
       <v-list-item v-else
@@ -38,15 +44,24 @@ const items = [
                    :title="item.text"
                    link
                    @click="router.push(item.href)"
+                   :class="{
+    active: route.fullPath===item.href
+  }"
       ></v-list-item>
     </template>
   </v-list>
 </template>
 
 <style scoped>
-.custom-list-group:hover  .v-list-item{
-  background-color: red;
-  //border-top-right-radius: 30px;
-  //border-bottom-right-radius: 30px;
+.v-list-item{
+  border-bottom-right-radius: 25px!important;
+  border-top-right-radius: 25px!important;
+}
+.active {
+  background-color: rgb(var(--v-theme-primary));
+  color: white;
+}
+.v-list-group__items .v-list-item{
+  padding-inline-start:15px !important;
 }
 </style>
