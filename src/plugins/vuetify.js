@@ -26,6 +26,24 @@ const vuetify = createVuetify({
     icons: {
         defaultSet: 'mdi', // This is already the default value - only for display purposes
     },
+    theme: {
+        defaultTheme: 'light',
+        themes: {
+            light: {
+                colors: {
+                    primary: '#1976D2', // Xanh lam chuẩn của chính phủ điện tử
+                    secondary: '#424242',
+                    accent: '#82B1FF',
+                    error: '#FF5252',
+                    info: '#2196F3',
+                    success: '#4CAF50',
+                    warning: '#FFC107',
+                    // Màu sắc tùy chỉnh cho nền
+                    background: '#F0F2F5', // Màu nền xám nhạt hiện đại
+                },
+            },
+        },
+    },
 })
 
 export default vuetify
